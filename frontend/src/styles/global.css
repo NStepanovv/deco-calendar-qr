@@ -1,0 +1,84 @@
+/* Установка общего фона для всей страницы */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Raleway', sans-serif;
+  background-color: #b3b3b3; /* Темный фон */
+  color: #ffffff; /* Светлый текст */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Полная высота страницы */
+}
+
+/* Белая плашка в центре */
+.content {
+  background-color: #ffffff;
+  color: #000000;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Тени */
+  padding: 20px;
+  width: 90%;
+  max-width: 600px; /* Ограничение ширины */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative; /* Для логотипа и кнопок */
+}
+
+/* Стили для видео на странице VideoPage */
+.content video {
+  max-width: 100%; /* Видео не выходит за пределы плашки */
+  border-radius: 10px; /* Закругленные края для видео */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Легкая тень */
+}
+
+.video-title {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #000000; /* Можно выбрать любой подходящий цвет */
+}
+
+/* Стили для логотипа */
+.logo {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 100px;
+  height: auto;
+  cursor: pointer;
+}
+
+.logo img {
+  width: 100%;
+  height: auto;
+}
+
+/* Стили для кнопок на странице NotAvailablePage */
+.not-available-buttons {
+  display: flex;
+  justify-content: space-between; /* Раздвигает кнопки к краям плашки */
+  width: 100%; /* Занимает всю ширину плашки */
+  margin-top: 20px;
+  gap: 20px; /* Расстояние между кнопками */
+}
+
+.not-available-buttons button {
+  flex: 1;
+  max-width: calc(50% - 10px);
+  background-color: #ffffff;
+  color: #2c2c2c;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-align: center;
+}
+
+.not-available-buttons button:hover {
+  background-color: #d3d3d3; /* Более светлый фон при наведении */
+}

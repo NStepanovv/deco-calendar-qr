@@ -1,0 +1,12 @@
+FROM node:16
+
+WORKDIR /app
+
+# Установка зависимостей
+COPY package.json package-lock.json ./
+RUN npm install
+
+# Копирование исходников
+COPY . ./
+
+CMD ["npm", "start"]
