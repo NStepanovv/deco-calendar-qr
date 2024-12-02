@@ -2,11 +2,13 @@ version: "3.9"
 
 services:
   app:
+    container_name: app
     build:
       context: .
     restart: always
     volumes:
       - static-data:/vol/web
+      - media-data:/vol/media
     environment:
       - DB_HOST=db
       - DB_NAME=${DB_NAME}
@@ -16,8 +18,11 @@ services:
       - ALLOWED_HOSTS=${ALLOWED_HOSTS}
     depends_on:
       - db
+    ports:
+      - "9000:9000"
 
   db:
+    container_name: db
     image: postgres:13-alpine
     restart: always
     volumes:
@@ -28,34 +33,25 @@ services:
       - POSTGRES_PASSWORD=${DB_PASS}
 
   proxy:
+    container_name: proxy
     build:
       context: ./proxy
     restart: always
     environment:
-      - LISTEN_PORT=8080
+      - LISTEN_PORT=8000
       - APP_HOST=app
       - APP_PORT=9000
       - FRONTEND_PATH=/usr/share/nginx/html
     depends_on:
       - app
-      - frontend
     ports:
-      - 8080:8080
+      - "80:8000"
     volumes:
+      - ./frontend/build:/usr/share/nginx/html
       - static-data:/vol/static
-
-  frontend:
-    build: 
-      context: ./frontend
-      dockerfile: Dockerfile
-    restart: always
-    depends_on:
-      - app
-    environment:
-      - REACT_APP_API_BASE_URL=/api/
-    expose:
-      - 80
+      - media-data:/vol/media
 
 volumes:
   postgres-data:
   static-data:
+  media-data:

@@ -1,31 +1,36 @@
 server {
     listen ${LISTEN_PORT};
 
-    # Frontend (React)
-    location / {
-        root /usr/share/nginx/html;
+        location / {
+        root ${FRONTEND_PATH};
         index index.html;
-        try_files $uri $uri/ /index.html;
+        try_files $uri /index.html;
     }
 
-    # Backend (Django API)
-    location /api/ {
-        proxy_pass http://${APP_HOST}:${APP_PORT}/;
+    location /admin {
+        uwsgi_pass ${APP_HOST}:${APP_PORT};
+        include /etc/nginx/uwsgi_params;
+        client_max_body_size 100M;
+    }
+
+    location /static/admin {
+        alias /vol/static;
+    }
+
+
+
+    location /static/media {
+        alias /vol/static/media;
+    }
+
+    location /api {
+        proxy_pass http://${APP_HOST}:${APP_PORT};
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
     }
 
-
-    # Media files (videos, images)
-    location /media/ {
-        alias /vol/web/media/;
-    }
-
-    # Static files
-    location /static/ {
-        alias /vol/static/;
-    }
+    client_max_body_size 100M;
 
 }

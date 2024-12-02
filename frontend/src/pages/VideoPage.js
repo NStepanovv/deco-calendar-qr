@@ -15,8 +15,9 @@ const VideoPage = () => {
         const videoData = response.data;
         // Преобразуем относительный путь в полный
         //const fullVideoUrl = `${process.env.REACT_APP_API_BASE_URL || "http://localhost:8000"}${videoData.video_url}`;
-        const fullVideoUrl = `http://192.168.1.38:8000${videoData.video_url}`;
-        setVideo({ ...videoData, video_url: fullVideoUrl });
+        //const fullVideoUrl = `http://127.0.0.1${videoData.video_url}`;
+        //setVideo({ ...videoData, video_url: fullVideoUrl });
+        setVideo(videoData);
       })
       .catch((err) => {
         if (err.response && err.response.status === 403) {
